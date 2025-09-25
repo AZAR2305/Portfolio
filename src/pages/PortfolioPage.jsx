@@ -41,6 +41,36 @@ const AnalyzerButton = styled(Link)`
   }
 `;
 
+const StudioButton = styled(Link)`
+  position: fixed;
+  top: 20px;
+  right: 180px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #00BFFF, #00FF88);
+  color: #000;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.5);
+    background: linear-gradient(135deg, #00FF88, #00BFFF);
+  }
+
+  @media (max-width: 768px) {
+    top: 10px;
+    right: 120px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+`;
+
 const PortfolioPage = ({ 
   currentSection, 
   scrollProgress, 
@@ -52,6 +82,11 @@ const PortfolioPage = ({
       <AnalyzerButton to="/analyzer">
         🔬 Avatar Analyzer
       </AnalyzerButton>
+
+      {/* Avatar Studio Access Button */}
+      <StudioButton to="/avatar-studio">
+        🧑‍🎨 Avatar Studio
+      </StudioButton>
 
       {/* Main Portfolio Content */}
       <Hero />

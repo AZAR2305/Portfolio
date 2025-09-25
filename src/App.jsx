@@ -8,6 +8,7 @@ import MasterCanvas from './components/3d/MasterCanvas';
 // Lazy load pages for better performance
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage'));
+const AvatarStudioPage = lazy(() => import('./pages/AvatarStudioPage'));
 
 // Fallback component for lazy loading
 const SectionLoader = () => (
@@ -114,7 +115,7 @@ const AppContent = () => {
       )}
       
       <Routes>
-            {/* Main Portfolio Route */}
+        {/* Main Portfolio Route */}
         <Route 
           path="/" 
           element={
@@ -126,15 +127,25 @@ const AppContent = () => {
               />
             </Suspense>
           } 
-        />            {/* Avatar Analyzer Route */}
-            <Route 
-              path="/analyzer" 
-              element={
-                <Suspense fallback={<SectionLoader />}>
-                  <AnalyzerPage />
-                </Suspense>
-              } 
-            />
+        />
+        {/* Avatar Analyzer Route */}
+        <Route 
+          path="/analyzer" 
+          element={
+            <Suspense fallback={<SectionLoader />}>
+              <AnalyzerPage />
+            </Suspense>
+          } 
+        />
+        {/* Avatar Studio Route */}
+        <Route 
+          path="/avatar-studio" 
+          element={
+            <Suspense fallback={<SectionLoader />}>
+              <AvatarStudioPage />
+            </Suspense>
+          } 
+        />
       </Routes>
     </div>
   );
