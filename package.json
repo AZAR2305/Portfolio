@@ -12,12 +12,12 @@
     "interactive",
     "futuristic"
   ],
-  "author": "Thameemul Azarudeen <thameemul.dev@gmail.com>",
+  "author": "Thameemul Azarudeen <thameemulazarudeen@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/thameemul/portfolio",
+  "homepage": "https://github.com/AZAR2305/portfolio",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thameemul/portfolio.git"
+    "url": "https://github.com/AZAR2305/portfolio.git"
   },
   "private": true,
   "type": "module",
