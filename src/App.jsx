@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle, theme } from './styles/GlobalStyles';
+import { GlobalStyle, theme } from './styles/ModernStyles';
 import LoadingScreen from './components/LoadingScreen';
 
 // Lazy load pages for better performance
-const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
+const ModernPortfolioPage = lazy(() => import('./pages/ModernPortfolioPage'));
 
 // Fallback component for lazy loading
 const SectionLoader = () => (
@@ -14,20 +14,22 @@ const SectionLoader = () => (
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#000000',
-    color: '#00ff41'
+    background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
+    color: '#8b5cf6'
   }}>
     <div style={{ textAlign: 'center' }}>
       <div style={{ 
-        width: '50px', 
-        height: '50px', 
-        border: '3px solid #00ff41',
-        borderTop: '3px solid transparent',
+        width: '60px', 
+        height: '60px', 
+        border: '3px solid rgba(139, 92, 246, 0.3)',
+        borderTop: '3px solid #8b5cf6',
         borderRadius: '50%',
         margin: '0 auto 20px',
         animation: 'spin 1s linear infinite'
       }} />
-      <p>Loading 3D Experience...</p>
+      <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.1rem' }}>
+        Loading Modern Experience...
+      </p>
       <style>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }
@@ -48,7 +50,7 @@ const AppContent = () => {
           path="/" 
           element={
             <Suspense fallback={<SectionLoader />}>
-              <PortfolioPage />
+              <ModernPortfolioPage />
             </Suspense>
           } 
         />
@@ -65,40 +67,19 @@ function App() {
   useEffect(() => {
     // Preload critical assets and simulate loading progress
     const preloadAssets = async () => {
-      const assets = [
-        'https://models.readyplayer.me/68d2aa0d27fbaaaba4fdfd21.glb'
+      // Simulate loading time for modern components
+      const loadingSteps = [
+        'Loading modern design system...',
+        'Initializing animations...',
+        'Preparing components...',
+        'Almost ready...'
       ];
 
-      let loadedCount = 0;
-      const totalAssets = assets.length;
-
-      // Simulate asset loading with progress
-      for (const asset of assets) {
-        try {
-          if (asset.endsWith('.glb')) {
-            // For GLB files, just simulate loading time
-            await new Promise(resolve => setTimeout(resolve, 1000));
-          } else if (asset.endsWith('.woff')) {
-            // For fonts, create a temporary style element to preload
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.href = asset;
-            link.as = 'font';
-            link.type = 'font/woff';
-            link.crossOrigin = 'anonymous';
-            document.head.appendChild(link);
-            await new Promise(resolve => setTimeout(resolve, 500));
-          }
-        } catch (error) {
-          console.warn(`Failed to preload asset: ${asset}`, error);
-        }
-
-        loadedCount++;
-        setLoadingProgress((loadedCount / totalAssets) * 100);
+      for (let i = 0; i < loadingSteps.length; i++) {
+        setLoadingProgress(((i + 1) / loadingSteps.length) * 100);
+        await new Promise(resolve => setTimeout(resolve, 400));
       }
 
-      // Additional loading time for 3D components initialization
-      await new Promise(resolve => setTimeout(resolve, 1000));
       setIsLoading(false);
     };
 
