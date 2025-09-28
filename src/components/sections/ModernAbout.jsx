@@ -8,7 +8,7 @@ import {
   Card,
   AnimatedText,
   FloatingElement
-} from '../styles/ModernStyles';
+} from '../../styles/ModernStyles.js';
 
 const AboutSection = styled(Section)`
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);

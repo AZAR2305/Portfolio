@@ -12,7 +12,7 @@ import {
   slideInFromLeft,
   slideInFromRight,
   scaleIn
-} from '../styles/ModernStyles';
+} from '../../styles/ModernStyles.js';
 
 const HeroSection = styled(Section)`
   min-height: 100vh;

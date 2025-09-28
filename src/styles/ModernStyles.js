@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
-// Modern Animation Keyframes
+// ===== ANIMATION KEYFRAMES =====
+
+// Basic Animations
 const floatAnimation = keyframes`
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }
@@ -42,9 +44,175 @@ const shimmer = keyframes`
   100% { transform: translateX(100%); }
 `;
 
-export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+// ===== ADVANCED LIQUID/FLUID ANIMATIONS =====
 
+const liquidMorph = keyframes`
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 40% 60% 70% 30% / 50% 60% 30% 60%;
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    border-radius: 30% 70% 40% 60% / 40% 50% 60% 50%;
+    transform: rotate(180deg) scale(0.9);
+  }
+  75% {
+    border-radius: 70% 30% 60% 40% / 30% 40% 50% 70%;
+    transform: rotate(270deg) scale(1.05);
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(360deg) scale(1);
+  }
+`;
+
+const liquidPulse = keyframes`
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+  33% {
+    transform: scale(1.2) rotate(120deg);
+    opacity: 0.5;
+  }
+  66% {
+    transform: scale(0.8) rotate(240deg);
+    opacity: 0.2;
+  }
+`;
+
+// ===== CRT SCREEN EFFECTS =====
+
+const crtScanlines = keyframes`
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+`;
+
+const crtFlicker = keyframes`
+  0%, 100% { opacity: 1; }
+  98% { opacity: 1; }
+  99% { opacity: 0.98; }
+  99.5% { opacity: 0.95; }
+`;
+
+const crtGlow = keyframes`
+  0%, 100% {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor,
+      0 0 20px #8b5cf6;
+  }
+  50% {
+    text-shadow: 
+      0 0 2px currentColor,
+      0 0 5px currentColor,
+      0 0 8px currentColor,
+      0 0 12px #8b5cf6,
+      0 0 18px #8b5cf6;
+  }
+`;
+
+// ===== INTERACTIVE PARTICLE EFFECTS =====
+
+const particleFloat = keyframes`
+  0% {
+    transform: translateY(100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+`;
+
+const waveDistortion = keyframes`
+  0%, 100% {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+  25% {
+    clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 85%);
+  }
+  50% {
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 85%);
+  }
+  75% {
+    clip-path: polygon(0 10%, 100% 15%, 100% 85%, 0 90%);
+  }
+`;
+
+const dataStream = keyframes`
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+`;
+
+const gradientWave = keyframes`
+  0% {
+    background-position: 0% 50%;
+    background-size: 100% 100%;
+  }
+  25% {
+    background-position: 100% 25%;
+    background-size: 150% 150%;
+  }
+  50% {
+    background-position: 50% 100%;
+    background-size: 200% 100%;
+  }
+  75% {
+    background-position: 25% 75%;
+    background-size: 100% 200%;
+  }
+  100% {
+    background-position: 0% 50%;
+    background-size: 100% 100%;
+  }
+`;
+
+// ===== EXPORT ANIMATIONS =====
+export {
+  floatAnimation,
+  gradientShift,
+  glow,
+  slideInFromLeft,
+  slideInFromRight,
+  fadeInUp,
+  scaleIn,
+  shimmer,
+  liquidMorph,
+  liquidPulse,
+  crtScanlines,
+  crtFlicker,
+  crtGlow,
+  particleFloat,
+  waveDistortion,
+  dataStream,
+  gradientWave
+};
+
+// ===== GLOBAL STYLES =====
+export const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
@@ -74,27 +242,6 @@ export const GlobalStyle = createGlobalStyle`
     color: #ffffff;
     letter-spacing: -0.02em;
     line-height: 1.2;
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-  }
-
-  h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 600;
-  }
-
-  p {
-    font-size: clamp(1rem, 2vw, 1.125rem);
-    color: #9ca3af;
-    line-height: 1.8;
   }
 
   /* Custom Scrollbar */
@@ -129,13 +276,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// ===== THEME CONFIGURATION =====
 export const theme = {
   colors: {
-    primary: '#8b5cf6', // Purple
-    secondary: '#06b6d4', // Cyan
-    accent: '#f59e0b', // Amber
-    success: '#10b981', // Emerald
-    error: '#ef4444', // Red
+    primary: '#8b5cf6',
+    secondary: '#06b6d4',
+    accent: '#f59e0b',
+    success: '#10b981',
+    error: '#ef4444',
     background: {
       primary: '#0f0f23',
       secondary: '#1a1a2e',
@@ -181,61 +329,43 @@ export const theme = {
     lg: '1024px',
     xl: '1280px',
     '2xl': '1536px',
-  },
-  animations: {
-    duration: {
-      fast: '0.2s',
-      normal: '0.3s',
-      slow: '0.5s',
-    },
-    easing: {
-      default: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      smooth: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-    }
   }
 };
 
-// Modern Container with responsive padding
+// ===== BASIC STYLED COMPONENTS =====
+
 export const Container = styled.div`
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
   
-  @media (max-width: ${props => props.theme.breakpoints.lg}) {
-    padding: 0 1.5rem;
-  }
-  
-  @media (max-width: ${props => props.theme.breakpoints.md}) {
+  @media (max-width: ${theme.breakpoints.md}) {
     padding: 0 1rem;
   }
 `;
 
-// Modern Section with smooth transitions
 export const Section = styled.section`
   min-height: 100vh;
-  width: 100%;
+  padding: 5rem 0;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem 0;
-  transition: all ${props => props.theme.animations.duration.slow} ${props => props.theme.animations.easing.smooth};
   
-  @media (max-width: ${props => props.theme.breakpoints.md}) {
+  @media (max-width: ${theme.breakpoints.md}) {
     padding: 3rem 0;
     min-height: auto;
   }
 `;
 
-// Animated Gradient Text
 export const GradientText = styled.h1.withConfig({
   shouldForwardProp: (prop) => !['size', 'animate'].includes(prop),
 })`
-  font-family: ${props => props.theme.fonts.heading};
+  font-family: ${theme.fonts.heading};
   font-size: ${props => props.size || 'clamp(2.5rem, 5vw, 4rem)'};
   font-weight: 800;
-  background: ${props => props.theme.gradients.animated};
+  background: ${theme.gradients.animated};
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -244,124 +374,25 @@ export const GradientText = styled.h1.withConfig({
   line-height: 1.1;
   letter-spacing: -0.02em;
   
-  @media (max-width: ${props => props.theme.breakpoints.md}) {
-    font-size: clamp(2rem, 8vw, 3rem);
+  @media (max-width: ${theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 4vw, 2rem);
   }
 `;
 
-// Modern Card Component
-export const Card = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['hover', 'glow'].includes(prop),
-})`
-  background: ${props => props.theme.gradients.glass};
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 2rem;
-  transition: all ${props => props.theme.animations.duration.normal} ${props => props.theme.animations.easing.smooth};
-  box-shadow: ${props => props.theme.shadows.card};
-  
-  ${props => props.hover && `
-    &:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: ${props.theme.shadows.xl}, ${props.glow ? props.theme.shadows.glow : 'none'};
-      border-color: rgba(139, 92, 246, 0.3);
-    }
-  `}
-  
-  @media (max-width: ${props => props.theme.breakpoints.md}) {
-    padding: 1.5rem;
-  }
-`;
-
-// Animated Button
-export const Button = styled.button.withConfig({
-  shouldForwardProp: (prop) => !['variant', 'size'].includes(prop),
-})`
-  font-family: ${props => props.theme.fonts.body};
-  font-weight: 600;
+export const Button = styled.button`
+  background: ${theme.gradients.primary};
   border: none;
-  border-radius: 0.75rem;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-family: ${theme.fonts.body};
+  font-weight: 600;
+  color: white;
   cursor: pointer;
-  transition: all ${props => props.theme.animations.duration.normal} ${props => props.theme.animations.easing.bounce};
+  transition: all 0.3s ease;
+  box-shadow: ${theme.shadows.glow};
   position: relative;
   overflow: hidden;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  
-  /* Button Sizes */
-  ${props => {
-    switch (props.size) {
-      case 'sm':
-        return `
-          padding: 0.5rem 1rem;
-          font-size: 0.875rem;
-        `;
-      case 'lg':
-        return `
-          padding: 1rem 2rem;
-          font-size: 1.125rem;
-        `;
-      default:
-        return `
-          padding: 0.75rem 1.5rem;
-          font-size: 1rem;
-        `;
-    }
-  }}
-  
-  /* Button Variants */
-  ${props => {
-    switch (props.variant) {
-      case 'primary':
-        return `
-          background: ${props.theme.gradients.primary};
-          color: white;
-          box-shadow: ${props.theme.shadows.medium};
-          
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: ${props.theme.shadows.large};
-          }
-        `;
-      case 'secondary':
-        return `
-          background: ${props.theme.colors.surface.secondary};
-          color: ${props.theme.colors.text.primary};
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          
-          &:hover {
-            background: ${props.theme.colors.surface.tertiary};
-            transform: translateY(-2px);
-          }
-        `;
-      case 'outline':
-        return `
-          background: transparent;
-          color: ${props.theme.colors.primary};
-          border: 2px solid ${props.theme.colors.primary};
-          
-          &:hover {
-            background: ${props.theme.colors.primary};
-            color: white;
-            transform: translateY(-2px);
-          }
-        `;
-      default:
-        return `
-          background: ${props.theme.gradients.primary};
-          color: white;
-        `;
-    }
-  }}
-  
-  &:active {
-    transform: scale(0.98);
-  }
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -369,43 +400,291 @@ export const Button = styled.button.withConfig({
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${theme.shadows.glowLarge};
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+export const Card = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: ${theme.shadows.card};
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: ${theme.shadows.glow}, ${theme.shadows.card};
+    border-color: ${theme.colors.primary}50;
+  }
+`;
+
+// ===== ADVANCED ANIMATED COMPONENTS =====
+
+// Liquid Background Blob
+export const LiquidBlob = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['size', 'color', 'speed'].includes(prop),
+})`
+  position: absolute;
+  width: ${props => props.size || '600px'};
+  height: ${props => props.size || '600px'};
+  background: ${props => props.color || theme.gradients.primary};
+  opacity: 0.1;
+  animation: ${liquidMorph} ${props => props.speed || '20s'} ease-in-out infinite;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  
+  &.interactive {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+`;
+
+// Interactive Liquid Container
+export const LiquidContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+`;
+
+// CRT Screen Effect
+export const CRTScreen = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      transparent 50%, 
+      rgba(0, 255, 0, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    animation: ${crtScanlines} 0.1s linear infinite;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 70%,
+      rgba(0, 0, 0, 0.3)
+    );
+    animation: ${crtFlicker} 0.15s linear infinite;
+    pointer-events: none;
+    z-index: 999;
+  }
+`;
+
+// CRT Text Effect
+export const CRTText = styled.div`
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  animation: ${crtGlow} 2s ease-in-out infinite alternate;
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor,
+    0 0 20px #00ff00;
+  
+  &.glitch {
+    position: relative;
+    
+    &::before,
+    &::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    &::before {
+      color: #ff0000;
+      animation: ${crtFlicker} 0.3s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      transform: translateX(-2px);
+    }
+    
+    &::after {
+      color: #0000ff;
+      animation: ${crtFlicker} 0.25s infinite reverse;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+      transform: translateX(2px);
+    }
+  }
+`;
+
+// Particle System
+export const Particle = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['delay', 'size', 'color', 'speed'].includes(prop),
+})`
+  position: absolute;
+  width: ${props => props.size || '4px'};
+  height: ${props => props.size || '4px'};
+  background: ${props => props.color || '#8b5cf6'};
+  border-radius: 50%;
+  animation: ${particleFloat} ${props => props.speed || '10s'} linear infinite;
+  animation-delay: ${props => props.delay || '0s'};
+  box-shadow: 0 0 10px currentColor;
+  
+  &.data-stream {
+    width: 2px;
+    height: 20px;
+    border-radius: 1px;
+    background: linear-gradient(to bottom, transparent, currentColor, transparent);
+    animation: ${dataStream} ${props => props.speed || '8s'} linear infinite;
+  }
+`;
+
+// Particle Container
+export const ParticleField = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+`;
+
+// Advanced Gradient Background
+export const AnimatedBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    -45deg,
+    #0f0f23,
+    #1a1a2e,
+    #16213e,
+    #2d1b69,
+    #0f0f23
+  );
+  background-size: 400% 400%;
+  animation: ${gradientWave} 15s ease infinite;
+  z-index: -2;
+`;
+
+// Wave Distortion Effect
+export const WaveContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${theme.gradients.primary};
+    opacity: 0.1;
+    animation: ${waveDistortion} 8s ease-in-out infinite;
+    z-index: -1;
+  }
+`;
+
+// Interactive Hover Effect
+export const InteractiveElement = styled.div`
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
   }
   
   &:hover::before {
-    left: 100%;
+    width: 300px;
+    height: 300px;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
   }
 `;
 
-// Floating Animation Component
+// Glitch Effect Container
+export const GlitchContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  
+  &.active {
+    animation: ${crtFlicker} 0.3s ease-in-out;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 0, 0, 0.1),
+        transparent
+      );
+      animation: ${shimmer} 0.5s ease-in-out;
+    }
+  }
+`;
+
+// Legacy exports for compatibility
 export const FloatingElement = styled.div`
   animation: ${floatAnimation} 6s ease-in-out infinite;
-  animation-delay: ${props => props.delay || '0s'};
 `;
 
-// Text with smooth fade-in animation
-export const AnimatedText = styled.p.withConfig({
-  shouldForwardProp: (prop) => !['delay'].includes(prop),
-})`
-  color: ${props => props.theme.colors.text.secondary};
-  font-size: 1.125rem;
-  line-height: 1.8;
-  animation: ${fadeInUp} 0.8s ${props => props.theme.animations.easing.smooth} ${props => props.delay || '0s'} both;
-  
-  @media (max-width: ${props => props.theme.breakpoints.md}) {
-    font-size: 1rem;
-  }
+export const AnimatedText = styled.div`
+  animation: ${fadeInUp} 0.8s ease-out;
 `;
-
-// Export animations for use in components
-export { 
-  floatAnimation, 
-  gradientShift, 
-  glow, 
-  slideInFromLeft, 
-  slideInFromRight, 
-  fadeInUp, 
-  scaleIn, 
-  shimmer 
-};
