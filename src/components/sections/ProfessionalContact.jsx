@@ -405,6 +405,7 @@ const ProfessionalContact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
+                  className="liquid-hover"
                   required
                 />
               </div>
@@ -418,6 +419,7 @@ const ProfessionalContact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email address"
+                  className="liquid-hover"
                   required
                 />
               </div>
@@ -431,6 +433,7 @@ const ProfessionalContact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="What's this about?"
+                  className="liquid-hover"
                   required
                 />
               </div>
@@ -443,13 +446,14 @@ const ProfessionalContact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell me about your project..."
+                  className="liquid-hover"
                   required
                 />
               </div>
               
               <button 
                 type="submit" 
-                className="submit-button"
+                className="submit-button liquid-hover"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}

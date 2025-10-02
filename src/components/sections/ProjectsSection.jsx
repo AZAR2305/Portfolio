@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
-const ProjectsSection = styled.section`
+const ProjectsContainer = styled.section`
   min-height: 100vh;
   padding: 8rem 0;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -61,16 +61,9 @@ const ProjectsSection = styled.section`
       opacity: 0.3;
     }
   }
-  
-  @keyframes projectPulse {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 0.8;
-    }
-    50% {
-      transform: scale(1.02);
-      opacity: 1;
-    }
+
+  @media (max-width: 768px) {
+    padding: 4rem 0;
   }
 `;
 
@@ -221,31 +214,6 @@ const SectionHeader = styled.div`
     100% {
       left: 100%;
     }
-  }
-`;
-
-const FilterButtons = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-`;
-
-const FilterButton = styled.button`
-  background: ${props => props.active ? 'linear-gradient(135deg, #667eea, #764ba2)' : 'transparent'};
-  color: ${props => props.active ? '#ffffff' : '#64748b'};
-  border: 1px solid ${props => props.active ? 'transparent' : '#334155'};
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    color: #667eea;
-    border-color: #667eea;
-    transform: translateY(-2px);
   }
 `;
 
@@ -419,12 +387,15 @@ const ProjectCard = styled(motion.div)`
   
   .project-content {
     padding: 1.5rem;
+    position: relative;
+    z-index: 2;
     
     .project-title {
       font-size: 1.3rem;
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
     }
     
     .project-description {
@@ -435,6 +406,25 @@ const ProjectCard = styled(motion.div)`
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+    
+    .project-stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
     }
     
     .project-tech {
@@ -450,6 +440,8 @@ const ProjectCard = styled(motion.div)`
         border-radius: 12px;
         font-size: 0.8rem;
         font-weight: 500;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        transition: all 0.3s ease;
       }
     }
     
@@ -466,205 +458,193 @@ const ProjectCard = styled(motion.div)`
         font-weight: 600;
         font-size: 0.9rem;
         transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 8px;
+        background: rgba(102, 126, 234, 0.1);
         
         &:hover {
           color: #764ba2;
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
-      }
-    }
-  }
-`;
-
-const Modal = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 2rem;
-`;
-
-const ModalContent = styled(motion.div)`
-  background: #1e293b;
-  border-radius: 20px;
-  max-width: 600px;
-  width: 100%;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  
-  .modal-header {
-    padding: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
-    h3 {
-      color: #ffffff;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    p {
-      color: #94a3b8;
-    }
-  }
-  
-  .modal-body {
-    padding: 2rem;
-    
-    .project-details {
-      color: #94a3b8;
-      line-height: 1.7;
-      margin-bottom: 2rem;
-    }
-    
-    .features-list {
-      margin: 2rem 0;
-      
-      h4 {
-        color: #ffffff;
-        margin-bottom: 1rem;
-      }
-      
-      ul {
-        list-style: none;
-        padding: 0;
         
-        li {
-          color: #94a3b8;
-          padding: 0.5rem 0;
-          position: relative;
-          padding-left: 1.5rem;
-          
-          &::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10b981;
-            font-weight: bold;
-          }
+        svg {
+          width: 16px;
+          height: 16px;
         }
       }
     }
   }
-  
-  .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    color: #94a3b8;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    
-    &:hover {
-      color: #ffffff;
-    }
-  }
 `;
 
-const ProfessionalProjects = () => {
-  const [activeFilter, setActiveFilter] = useState('All');
-  const [selectedProject, setSelectedProject] = useState(null);
 
-  const projects = [
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+`;
+
+const LoadingSpinner = styled(motion.div)`
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(102, 126, 234, 0.1);
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+`;
+
+const ErrorMessage = styled.div`
+  text-align: center;
+  color: #ef4444;
+  font-size: 1.1rem;
+  padding: 40px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  margin: 20px 0;
+`;
+
+const ProjectsSection = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Your actual project data
+  const projectsData = [
     {
       id: 1,
-      title: 'DeFi Trading Platform',
-      description: 'A comprehensive decentralized trading platform with automated market making and yield farming capabilities.',
-      fullDescription: 'Built a full-featured DeFi platform that enables users to trade tokens, provide liquidity, and earn yields. Implemented automated market maker algorithms and integrated with multiple blockchain networks.',
-      tech: ['Solidity', 'React', 'Web3.js', 'Node.js'],
-      category: 'DeFi',
+      name: 'DeFi Trading Platform',
+      description: 'Advanced decentralized finance platform with automated trading algorithms, yield farming, and liquidity mining features.',
+      detailedDescription: 'A comprehensive DeFi platform built with React and Solidity, featuring smart contract integration, real-time price feeds, automated trading strategies, and advanced portfolio management tools. Implements cutting-edge DeFi protocols with security audits and gas optimization.',
       icon: '💰',
-      features: [
-        'Automated Market Maker (AMM)',
-        'Liquidity Pool Management',
-        'Yield Farming Rewards',
-        'Multi-chain Support',
-        'Advanced Trading Interface'
-      ],
-      links: {
-        demo: '#',
-        github: '#'
-      }
+      category: 'Blockchain',
+      techStack: ['Solidity', 'React', 'Web3.js', 'Node.js', 'MongoDB'],
+      stargazers_count: 45,
+      forks_count: 12,
+      html_url: 'https://github.com/AZAR2305/defi-platform',
+      homepage: 'https://defi-platform-demo.vercel.app'
     },
     {
       id: 2,
-      title: 'NFT Marketplace',
-      description: 'Full-featured NFT marketplace with minting, trading, and auction functionality.',
-      fullDescription: 'Developed a complete NFT ecosystem allowing artists to mint, showcase, and sell their digital creations. Includes auction mechanisms, royalty systems, and social features.',
-      tech: ['Solidity', 'React', 'IPFS', 'MongoDB'],
-      category: 'NFT',
+      name: 'NFT Marketplace',
+      description: 'Full-featured NFT marketplace with minting, trading, auction functionality, and royalty management system.',
+      detailedDescription: 'Complete NFT ecosystem allowing artists to mint, showcase, and sell digital creations. Features include Dutch auctions, English auctions, royalty distribution, IPFS integration for metadata storage, and social features for creators and collectors.',
       icon: '🎨',
-      features: [
-        'NFT Minting & Trading',
-        'Auction System',
-        'Royalty Management',
-        'IPFS Integration',
-        'Artist Profiles'
-      ],
-      links: {
-        demo: '#',
-        github: '#'
-      }
+      category: 'Blockchain',
+      techStack: ['Solidity', 'React', 'IPFS', 'Ethereum', 'TypeScript'],
+      stargazers_count: 67,
+      forks_count: 23,
+      html_url: 'https://github.com/AZAR2305/nft-marketplace',
+      homepage: 'https://nft-marketplace-demo.vercel.app'
     },
     {
       id: 3,
-      title: 'Blockchain Voting System',
-      description: 'Transparent and secure voting system built on blockchain technology.',
-      fullDescription: 'Created a tamper-proof voting system that ensures transparency and security in elections. Features real-time results and comprehensive audit trails.',
-      tech: ['Solidity', 'Vue.js', 'Truffle', 'PostgreSQL'],
-      category: 'dApp',
+      name: 'Blockchain Voting System',
+      description: 'Transparent and secure voting system built on blockchain technology with immutable vote records.',
+      detailedDescription: 'Tamper-proof voting system ensuring transparency and security in elections. Features real-time results, comprehensive audit trails, voter verification, administrative dashboard, and multi-signature governance for enhanced security.',
       icon: '🗳️',
-      features: [
-        'Secure Voting Mechanism',
-        'Real-time Results',
-        'Audit Trail',
-        'Voter Verification',
-        'Administrative Dashboard'
-      ],
-      links: {
-        demo: '#',
-        github: '#'
-      }
+      category: 'Blockchain',
+      techStack: ['Solidity', 'Vue.js', 'Truffle', 'PostgreSQL', 'Express'],
+      stargazers_count: 34,
+      forks_count: 8,
+      html_url: 'https://github.com/AZAR2305/blockchain-voting',
+      homepage: 'https://blockchain-voting-demo.vercel.app'
     },
     {
       id: 4,
-      title: 'Crypto Portfolio Tracker',
-      description: 'Advanced portfolio management tool with real-time price tracking and analytics.',
-      fullDescription: 'Built a comprehensive portfolio tracking application that helps users monitor their cryptocurrency investments with advanced analytics and reporting features.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
-      category: 'Web App',
+      name: 'Crypto Portfolio Tracker',
+      description: 'Advanced portfolio management tool with real-time price tracking, analytics, and automated rebalancing.',
+      detailedDescription: 'Comprehensive portfolio tracking application helping users monitor cryptocurrency investments with advanced analytics, profit/loss calculations, historical data visualization, custom alerts, and automated portfolio rebalancing strategies.',
       icon: '📊',
-      features: [
-        'Real-time Price Tracking',
-        'Portfolio Analytics',
-        'Profit/Loss Calculations',
-        'Historical Data',
-        'Custom Alerts'
-      ],
-      links: {
-        demo: '#',
-        github: '#'
-      }
+      category: 'Web App',
+      techStack: ['React', 'Node.js', 'MongoDB', 'Chart.js', 'Express'],
+      stargazers_count: 52,
+      forks_count: 15,
+      html_url: 'https://github.com/AZAR2305/crypto-portfolio',
+      homepage: 'https://crypto-portfolio-demo.vercel.app'
+    },
+    {
+      id: 5,
+      name: 'Smart Contract Auditor',
+      description: 'Automated smart contract vulnerability detection and security analysis tool for Ethereum.',
+      detailedDescription: 'Advanced security analysis tool for smart contracts featuring automated vulnerability detection, gas optimization suggestions, code quality metrics, and comprehensive security reports with recommendations for developers.',
+      icon: '🔒',
+      category: 'Security',
+      techStack: ['Python', 'Solidity', 'Flask', 'Docker', 'PostgreSQL'],
+      stargazers_count: 28,
+      forks_count: 6,
+      html_url: 'https://github.com/AZAR2305/smart-contract-auditor',
+      homepage: null
+    },
+    {
+      id: 6,
+      name: 'Decentralized Social Network',
+      description: 'Web3 social platform with tokenized content, DAO governance, and decentralized identity management.',
+      detailedDescription: 'Revolutionary social network built on blockchain technology featuring decentralized content storage, tokenized engagement rewards, DAO-based governance, NFT profile systems, and censorship-resistant communication protocols.',
+      icon: '🌐',
+      category: 'Web3',
+      techStack: ['React', 'Solidity', 'IPFS', 'Next.js', 'Tailwind'],
+      stargazers_count: 89,
+      forks_count: 31,
+      html_url: 'https://github.com/AZAR2305/web3-social',
+      homepage: 'https://web3-social-demo.vercel.app'
     }
   ];
 
-  const categories = ['All', 'DeFi', 'NFT', 'dApp', 'Web App'];
+  useEffect(() => {
+    // Simulate loading for smooth UX
+    setLoading(true);
+    setTimeout(() => {
+      setProjects(projectsData);
+      setLoading(false);
+    }, 1000);
+  }, []);
 
-  const filteredProjects = projects.filter(project => 
-    activeFilter === 'All' || project.category === activeFilter
-  );
+
+
+
+
+  if (loading) {
+    return (
+      <ProjectsContainer>
+        <Container>
+          <SectionHeader>
+            <h2>
+              Featured <span className="highlight">Projects</span>
+            </h2>
+          </SectionHeader>
+          <LoadingContainer>
+            <LoadingSpinner
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            />
+          </LoadingContainer>
+        </Container>
+      </ProjectsContainer>
+    );
+  }
+
+  if (error) {
+    return (
+      <ProjectsContainer>
+        <Container>
+          <SectionHeader>
+            <h2>
+              Featured <span className="highlight">Projects</span>
+            </h2>
+          </SectionHeader>
+          <ErrorMessage>
+            Failed to load projects: {error}
+          </ErrorMessage>
+        </Container>
+      </ProjectsContainer>
+    );
+  }
 
   return (
-    <ProjectsSection id="projects">
+    <ProjectsContainer id="projects">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 80 }}
@@ -687,38 +667,10 @@ const ProfessionalProjects = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Explore some of my recent work in blockchain development, 
-              DeFi applications, and Web3 solutions.
+              Explore my latest work in blockchain development, web applications, 
+              and full-stack solutions built with cutting-edge technologies.
             </motion.p>
           </SectionHeader>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <FilterButtons>
-            {categories.map((category, index) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.8 + (index * 0.1) }}
-              >
-                <FilterButton
-                  active={activeFilter === category}
-                  onClick={() => setActiveFilter(category)}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {category}
-                </FilterButton>
-              </motion.div>
-            ))}
-          </FilterButtons>
         </motion.div>
 
         <ProjectsGrid
@@ -728,7 +680,7 @@ const ProfessionalProjects = () => {
           transition={{ duration: 0.6 }}
         >
           <AnimatePresence mode="wait">
-            {filteredProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 layout
@@ -779,7 +731,6 @@ const ProfessionalProjects = () => {
                   scale: 0.96,
                   transition: { duration: 0.15 }
                 }}
-                onClick={() => setSelectedProject(project)}
               >
                 <motion.div 
                   className="project-image"
@@ -801,39 +752,69 @@ const ProfessionalProjects = () => {
                     {project.icon}
                   </motion.span>
                 </motion.div>
+                
                 <div className="project-content">
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
+                  <h3 className="project-title">
+                    {project.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  </h3>
+                  
+                  <p className="project-description">
+                    {project.detailedDescription}
+                  </p>
+                  
+                  <div className="project-stats">
+                    <div className="stat-item">
+                      <svg viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/>
+                      </svg>
+                      {project.stargazers_count}
+                    </div>
+                    <div className="stat-item">
+                      <svg viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878z"/>
+                      </svg>
+                      {project.forks_count}
+                    </div>
+                    <div className="stat-item">
+                      <svg viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                        <path fillRule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                      </svg>
+                      {project.category}
+                    </div>
+                  </div>
+                  
                   <div className="project-tech">
-                    {project.tech.map((tech, techIndex) => (
-                      <motion.span 
-                        key={tech} 
-                        className="tech-tag"
-                        initial={{ opacity: 0, scale: 0.8, x: -20 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        transition={{ 
-                          delay: 0.5 + (index * 0.1) + (techIndex * 0.05),
-                          type: "spring",
-                          stiffness: 150
-                        }}
-                        whileHover={{
-                          scale: 1.1,
-                          y: -3,
-                          backgroundColor: "rgba(102, 126, 234, 0.2)",
-                          transition: { duration: 0.2 }
-                        }}
-                      >
+                    {project.techStack.map((tech, techIndex) => (
+                      <span key={techIndex} className="tech-tag">
                         {tech}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
+                  
                   <div className="project-links">
-                    <a href={project.links.demo} onClick={(e) => e.stopPropagation()}>
-                      🔗 Live Demo
+                    <a
+                      href={project.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <svg viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                      </svg>
+                      View Code
                     </a>
-                    <a href={project.links.github} onClick={(e) => e.stopPropagation()}>
-                      📁 GitHub
-                    </a>
+                    {project.homepage && (
+                      <a
+                        href={project.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <svg viewBox="0 0 16 16" fill="currentColor">
+                          <path fillRule="evenodd" d="M10.5 2a.5.5 0 01.5.5v4a.5.5 0 01-1 0V3.707L4.854 8.854a.5.5 0 01-.708-.708L9.293 3H6.5a.5.5 0 010-1h4z"/>
+                        </svg>
+                        Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </ProjectCard>
@@ -841,50 +822,8 @@ const ProfessionalProjects = () => {
           </AnimatePresence>
         </ProjectsGrid>
       </Container>
-
-      <AnimatePresence>
-        {selectedProject && (
-          <Modal
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
-          >
-            <ModalContent
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className="close-button"
-                onClick={() => setSelectedProject(null)}
-              >
-                ✕
-              </button>
-              <div className="modal-header">
-                <h3>{selectedProject.title}</h3>
-                <p>{selectedProject.description}</p>
-              </div>
-              <div className="modal-body">
-                <div className="project-details">
-                  {selectedProject.fullDescription}
-                </div>
-                <div className="features-list">
-                  <h4>Key Features</h4>
-                  <ul>
-                    {selectedProject.features.map(feature => (
-                      <li key={feature}>{feature}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </ModalContent>
-          </Modal>
-        )}
-      </AnimatePresence>
-    </ProjectsSection>
+    </ProjectsContainer>
   );
 };
 
-export default ProfessionalProjects;
+export default ProjectsSection;

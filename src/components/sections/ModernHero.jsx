@@ -238,7 +238,7 @@ const Hero = () => {
               
               <GradientText animate size="clamp(3rem, 6vw, 5rem)">
                 <motion.span variants={itemVariants}>
-                  Thameemul Azarudeen
+                 Hi,  Thameemul Azarudeen
                 </motion.span>
               </GradientText>
               

@@ -10,6 +10,11 @@ const HeroContainer = styled.section`
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   position: relative;
   overflow: hidden;
+  padding-top: 100px; /* Account for fixed navigation height */
+  
+  @media (max-width: 768px) {
+    padding-top: 80px;
+  }
   
   &::before {
     content: '';
@@ -92,13 +97,21 @@ const FloatingElements = styled.div`
 const Container = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 2rem 3rem;
   width: 100%;
   z-index: 2;
   position: relative;
   
+  @media (max-width: 1024px) {
+    padding: 1.5rem 2rem;
+  }
+  
   @media (max-width: 768px) {
-    padding: 0 1.5rem;
+    padding: 1rem 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1rem;
   }
 `;
 
@@ -107,12 +120,23 @@ const HeroContent = styled.div`
   grid-template-columns: 1.2fr 1fr;
   gap: 5rem;
   align-items: center;
-  min-height: 80vh;
+  min-height: calc(80vh - 100px); /* Subtract navigation height */
+  
+  @media (max-width: 1024px) {
+    gap: 4rem;
+    min-height: calc(75vh - 80px);
+  }
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 3rem;
     text-align: center;
+    min-height: calc(70vh - 80px);
+  }
+  
+  @media (max-width: 480px) {
+    gap: 2rem;
+    min-height: calc(65vh - 80px);
   }
 `;
 
@@ -296,6 +320,12 @@ const TypewriterText = ({ text, speed = 100 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    // Reset when text changes
+    setDisplayText('');
+    setCurrentIndex(0);
+  }, [text]);
+
+  useEffect(() => {
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
         setDisplayText(prev => prev + text[currentIndex]);
@@ -304,7 +334,7 @@ const TypewriterText = ({ text, speed = 100 }) => {
 
       return () => clearTimeout(timeout);
     }
-  }, [currentIndex, text, speed]);
+  }, [currentIndex, text.length, speed]);
 
   return <span>{displayText}</span>;
 };

@@ -11,31 +11,21 @@ const NavContainer = styled(motion.nav)`
   background: ${props => props.scrolled ? 'rgba(15, 23, 42, 0.95)' : 'transparent'};
   backdrop-filter: ${props => props.scrolled ? 'blur(20px)' : 'none'};
   border-bottom: ${props => props.scrolled ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'};
-  transition: all 0.3s ease;
-  padding: 1rem 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: ${props => props.scrolled ? '1rem 0' : '1.2rem 0'};
+  min-height: 80px;
 `;
 
 const NavContent = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1rem, 4vw, 3rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
-const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-  
-  .highlight {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-`;
 
 const NavLinks = styled.div`
   display: flex;
@@ -53,6 +43,8 @@ const NavLink = styled.a`
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   
   &:hover {
     color: #667eea;
@@ -149,10 +141,54 @@ const CTAButton = styled.button`
   }
 `;
 
+const DynamicName = styled(motion.div)`
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  
+  .first-name {
+    color: #ffffff;
+    margin-right: 0.5rem;
+    display: inline-block;
+  }
+  
+  .last-name {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    animation: gradientShift 4s ease-in-out infinite;
+  }
+  
+  &:hover {
+    .first-name {
+      color: #e2e8f0;
+      text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+    }
+    
+    .last-name {
+      filter: brightness(1.2);
+    }
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+`;
+
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [showName, setShowName] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -177,6 +213,30 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
+  // Intersection Observer for Hero Section Name Visibility
+  useEffect(() => {
+    const heroSection = document.getElementById('home');
+    if (!heroSection) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Show name in nav when hero name is NOT visible (less than 30% visible)
+        setShowName(!entry.isIntersecting || entry.intersectionRatio < 0.3);
+      },
+      {
+        threshold: [0, 0.3, 0.7], // Multiple thresholds for smooth transition
+        rootMargin: '-150px 0px 0px 0px' // Trigger when hero is 150px from top
+      }
+    );
+    
+    observer.observe(heroSection);
+    return () => observer.disconnect();
+  }, []);
+  
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -202,16 +262,32 @@ const Navigation = () => {
         transition={{ duration: 0.5 }}
       >
         <NavContent>
-          <Logo>
-            <span className="highlight">Thameemul</span> Azarudeen
-          </Logo>
+          <AnimatePresence>
+            {showName && (
+              <DynamicName
+                initial={{ opacity: 0, x: -20, scale: 0.8 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -20, scale: 0.8 }}
+                transition={{ 
+                  duration: 0.4, 
+                  type: "spring", 
+                  stiffness: 200, 
+                  damping: 20 
+                }}
+                onClick={scrollToTop}
+              >
+                <span className="first-name">THAMEEMUL</span>
+                <span className="last-name">AZARUDEEN</span>
+              </DynamicName>
+            )}
+          </AnimatePresence>
           
           <NavLinks>
             {navItems.map(item => (
               <NavLink
                 key={item.id}
                 href={`#${item.id}`}
-                className={activeSection === item.id ? 'active' : ''}
+                className={`liquid-hover ${activeSection === item.id ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(item.id);

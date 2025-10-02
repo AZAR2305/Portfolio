@@ -322,14 +322,50 @@ const SkillCard = styled(motion.div)`
   }
 `;
 
-const TechStack = styled.div`
+const TechStack = styled(motion.div)`
   margin-top: 3rem;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    right: -20px;
+    bottom: -10px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), transparent);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: -1;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
   
   h4 {
     color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+    
+    &:hover::after {
+      width: 80px;
+    }
   }
   
   .tech-list {
@@ -341,15 +377,16 @@ const TechStack = styled.div`
   .tech-item {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
     color: #e2e8f0;
-    padding: 0.8rem 1.2rem;
-    border-radius: 25px;
-    font-size: 0.9rem;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.95rem;
     font-weight: 600;
     border: 1px solid rgba(102, 126, 234, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    transform-style: preserve-3d;
     
     &::before {
       content: '';
@@ -360,21 +397,43 @@ const TechStack = styled.div`
       height: 100%;
       background: linear-gradient(90deg, 
         transparent,
-        rgba(102, 126, 234, 0.2),
+        rgba(100, 255, 218, 0.3),
         transparent
       );
-      transition: left 0.5s;
+      transition: left 0.6s ease;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(100, 255, 218, 0.2), transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.4s ease;
+      z-index: -1;
     }
     
     &:hover {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-      border-color: rgba(102, 126, 234, 0.5);
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-      color: #ffffff;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+      border-color: rgba(100, 255, 218, 0.6);
+      transform: translateY(-5px) rotateY(10deg) scale(1.08);
+      box-shadow: 
+        0 12px 30px rgba(100, 255, 218, 0.3),
+        0 0 20px rgba(102, 126, 234, 0.2);
+      color: #64ffda;
+      text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
       
       &::before {
         left: 100%;
+      }
+      
+      &::after {
+        width: 100px;
+        height: 100px;
       }
     }
   }
@@ -478,20 +537,31 @@ const ProfessionalAbout = () => {
                   <motion.span
                     key={tech}
                     className="tech-item"
-                    initial={{ opacity: 0, scale: 0.5, y: 20 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    initial={{ 
+                      opacity: 0, 
+                      scale: 0.6, 
+                      rotateY: -90,
+                      z: -50
+                    }}
+                    whileInView={{ 
+                      opacity: 1, 
+                      scale: 1, 
+                      rotateY: 0,
+                      z: 0
+                    }}
                     viewport={{ once: true }}
                     transition={{ 
-                      duration: 0.5, 
-                      delay: 1 + (index * 0.08),
+                      duration: 0.6, 
+                      delay: 0.5 + (index * 0.08),
                       type: "spring",
-                      stiffness: 200
+                      stiffness: 150,
+                      damping: 12
                     }}
                     whileHover={{
                       scale: 1.1,
-                      y: -5,
-                      rotate: Math.random() * 10 - 5,
-                      transition: { duration: 0.2 }
+                      rotateY: 5,
+                      z: 20,
+                      transition: { duration: 0.3 }
                     }}
                   >
                     {tech}

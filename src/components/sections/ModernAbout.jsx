@@ -268,7 +268,7 @@ const About = () => {
             >
               {skills.map((skill, index) => (
                 <motion.div key={index} variants={itemVariants}>
-                  <SkillCard hover glow>
+                  <SkillCard hover glow className="liquid-hover skill-item">
                     <SkillHeader>
                       <SkillIcon>{skill.icon}</SkillIcon>
                       <SkillTitle>{skill.title}</SkillTitle>
