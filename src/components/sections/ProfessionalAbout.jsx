@@ -465,7 +465,7 @@ const ProfessionalAbout = () => {
 
   const techStack = [
     'Solidity', 'Web3.js', 'Ethers.js', 'React', 'Node.js', 'TypeScript',
-    'Python', 'Hardhat', 'Truffle', 'IPFS', 'MongoDB', 'PostgreSQL'
+    'Python', 'Hardhat', 'Supabase', 'Firebase', 'Javascript', 'Next.js', 'MongoDB', 'PostgreSQL'
   ];
 
   return (

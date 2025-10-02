@@ -884,7 +884,7 @@ const ProfessionalHero = () => {
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <span className="number">50+</span>
+                  <span className="number">10+</span>
                   <span className="label">Projects</span>
                 </motion.div>
                 <motion.div 
@@ -895,14 +895,7 @@ const ProfessionalHero = () => {
                   <span className="number">3+</span>
                   <span className="label">Years Exp</span>
                 </motion.div>
-                <motion.div 
-                  className="stat"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <span className="number">100%</span>
-                  <span className="label">Client Satisfaction</span>
-                </motion.div>
+              
               </StatsContainer>
             </motion.div>
           </TextContent>

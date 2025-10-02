@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import thameemulPhoto from '../../assets/thameemul-photo.jpg';
 
 const HeroContainer = styled.section`
   min-height: 100vh;
@@ -429,12 +430,26 @@ const ProfessionalHero = () => {
                 <PrimaryButton
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    const projectsSection = document.getElementById('projects');
+                    if (projectsSection) {
+                      projectsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   VIEW MY WORK
                 </PrimaryButton>
                 <SecondaryButton
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/CV.pdf';
+                    link.download = 'CV.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
                 >
                   DOWNLOAD CV
                 </SecondaryButton>
@@ -448,17 +463,14 @@ const ProfessionalHero = () => {
             >
               <StatsContainer>
                 <div className="stat">
-                  <span className="number">50+</span>
+                  <span className="number">10+</span>
                   <span className="label">Projects</span>
                 </div>
                 <div className="stat">
                   <span className="number">3+</span>
                   <span className="label">Years Exp</span>
                 </div>
-                <div className="stat">
-                  <span className="number">100%</span>
-                  <span className="label">Client Satisfaction</span>
-                </div>
+                
               </StatsContainer>
             </motion.div>
           </TextContent>
@@ -472,7 +484,7 @@ const ProfessionalHero = () => {
               whileHover={{ scale: 1.02, rotateY: 5 }}
             >
               <img 
-                src="/src/assets/thameemul-photo.jpg" 
+                src={thameemulPhoto} 
                 alt="Thameemul Azarudeen" 
               />
             </ProfileCard>

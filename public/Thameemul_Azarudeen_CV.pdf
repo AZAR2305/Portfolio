@@ -1,0 +1,133 @@
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Contents 4 0 R
+/Resources <<
+/Font <<
+/F1 5 0 R
+>>
+>>
+>>
+endobj
+
+4 0 obj
+<<
+/Length 1000
+>>
+stream
+BT
+/F1 24 Tf
+50 750 Td
+(Thameemul Azarudeen) Tj
+0 -30 Td
+/F1 16 Tf
+(Blockchain & Web3 Developer) Tj
+0 -40 Td
+/F1 12 Tf
+(Email: thameemul.azarudeen@example.com) Tj
+0 -20 Td
+(Phone: +1-234-567-8900) Tj
+0 -20 Td
+(LinkedIn: linkedin.com/in/thameemul-azarudeen) Tj
+0 -20 Td
+(GitHub: github.com/AZAR2305) Tj
+
+0 -40 Td
+/F1 16 Tf
+(EXPERIENCE) Tj
+0 -25 Td
+/F1 12 Tf
+(Blockchain Developer | Freelance | 2022 - Present) Tj
+0 -15 Td
+(• Developed smart contracts using Solidity and Web3.js) Tj
+0 -15 Td
+(• Built decentralized applications with React and Node.js) Tj
+0 -15 Td
+(• Integrated blockchain technology with AI and IoT systems) Tj
+
+0 -30 Td
+/F1 16 Tf
+(TECHNICAL SKILLS) Tj
+0 -25 Td
+/F1 12 Tf
+(Programming: JavaScript, Python, Solidity, C#) Tj
+0 -15 Td
+(Frameworks: React, Next.js, Node.js, Unity) Tj
+0 -15 Td
+(Blockchain: Ethereum, Smart Contracts, Web3.js, Hardhat) Tj
+0 -15 Td
+(Databases: MongoDB, PostgreSQL, Supabase, Firebase) Tj
+0 -15 Td
+(Tools: Git, Docker, IPFS, MetaMask) Tj
+
+0 -30 Td
+/F1 16 Tf
+(PROJECTS) Tj
+0 -25 Td
+/F1 12 Tf
+(in-SEI-ght - AI-powered social engagement insights platform) Tj
+0 -15 Td
+(DroneX - IoT blockchain integration for drone coordination) Tj
+0 -15 Td
+(TracX - Decentralized supply chain tracking system) Tj
+0 -15 Td
+(Kendo - Gamified learning platform with blockchain rewards) Tj
+0 -15 Td
+(Nether-Quest - Blockchain-based adventure game with NFTs) Tj
+0 -15 Td
+(DJs on Demand - Smart contract-based DJ booking platform) Tj
+
+0 -30 Td
+/F1 16 Tf
+(EDUCATION) Tj
+0 -25 Td
+/F1 12 Tf
+(Bachelor's in Computer Science) Tj
+0 -15 Td
+(Specialized in Blockchain Technology and Web Development) Tj
+ET
+endstream
+endobj
+
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+endobj
+
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000274 00000 n 
+0000001326 00000 n 
+trailer
+<<
+/Size 6
+/Root 1 0 R
+>>
+startxref
+1404
+%%EOF
