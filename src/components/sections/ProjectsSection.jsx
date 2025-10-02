@@ -685,20 +685,7 @@ const ProjectsSection = () => {
       techStack: ['Node.js', 'Solidity', 'Web3', 'AI/ML', 'ZK-Tech'],
       stargazers_count: 42,
       forks_count: 18,
-      html_url: 'https://github.com/AZAR2305/in-sei-ght',
-      homepage: null
-    },
-    {
-      id: 2,
-      name: 'DroneX',
-      description: 'A project to integrate real-world agents (drones/robots) with blockchain for coordination and secure commands.',
-      detailedDescription: 'Revolutionary IoT project that bridges physical robotics with blockchain technology. Enables secure, decentralized control of drones and robotic systems through smart contracts, ensuring tamper-proof coordination and autonomous operations.',
-      icon: '🚁',
-      category: 'IoT + Blockchain',
-      techStack: ['Robotics', 'Blockchain', 'IoT', 'Smart Contracts', 'Python'],
-      stargazers_count: 38,
-      forks_count: 12,
-      html_url: 'https://github.com/AZAR2305/dronex',
+      html_url: 'https://github.com/AZAR2305/Sei',
       homepage: null
     },
     {
@@ -724,7 +711,7 @@ const ProjectsSection = () => {
       techStack: ['React', 'Node.js', 'Smart Contracts', 'MongoDB', 'Web3'],
       stargazers_count: 71,
       forks_count: 34,
-      html_url: 'https://github.com/AZAR2305/kendo',
+      html_url: 'https://github.com/AZAR2305/KENDO',
       homepage: null
     },
     {
@@ -737,7 +724,7 @@ const ProjectsSection = () => {
       techStack: ['Unity', 'Web3', 'Smart Contracts', 'NFTs', 'C#'],
       stargazers_count: 94,
       forks_count: 45,
-      html_url: 'https://github.com/AZAR2305/nether-quest',
+      html_url: 'https://github.com/AZAR2305/Nether-Quest-2.0',
       homepage: null
     },
     {
@@ -750,7 +737,7 @@ const ProjectsSection = () => {
       techStack: ['React', 'Node.js', 'Firebase', 'Solidity', 'Web3'],
       stargazers_count: 48,
       forks_count: 19,
-      html_url: 'https://github.com/AZAR2305/djs-on-demand',
+      html_url: 'https://github.com/AZAR2305/djsondemand',
       homepage: null
     }
   ];
