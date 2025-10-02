@@ -342,7 +342,7 @@ const ProfessionalContact = () => {
                 <div className="icon">📧</div>
                 <div className="info">
                   <div className="label">Email</div>
-                  <div className="value">thameemul@example.com</div>
+                  <div className="value">thameemulazarudeen@gmail.com</div>
                 </div>
               </div>
               
@@ -350,7 +350,7 @@ const ProfessionalContact = () => {
                 <div className="icon">📱</div>
                 <div className="info">
                   <div className="label">Phone</div>
-                  <div className="value">+1 (555) 123-4567</div>
+                  <div className="value">+91 9600167794</div>
                 </div>
               </div>
               
@@ -358,7 +358,7 @@ const ProfessionalContact = () => {
                 <div className="icon">📍</div>
                 <div className="info">
                   <div className="label">Location</div>
-                  <div className="value">Remote / Worldwide</div>
+                  <div className="value">Remote</div>
                 </div>
               </div>
               
@@ -371,10 +371,10 @@ const ProfessionalContact = () => {
               </div>
               
               <div className="social-links">
-                <a href="#" aria-label="GitHub">🐙</a>
-                <a href="#" aria-label="LinkedIn">💼</a>
-                <a href="#" aria-label="Twitter">🐦</a>
-                <a href="#" aria-label="Telegram">✈️</a>
+                <a href="https://github.com/AZAR2305" aria-label="GitHub">🐙</a>
+                <a href="https://www.linkedin.com/in/thameemul-azarudeen-6b5097290" aria-label="LinkedIn">💼</a>
+                <a href="https://www.instagram.com/_azar_verse" aria-label="Instagram">🐦</a>
+                
               </div>
             </ContactInfo>
           </motion.div>

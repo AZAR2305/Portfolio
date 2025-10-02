@@ -506,90 +506,252 @@ const ErrorMessage = styled.div`
   margin: 20px 0;
 `;
 
+const Modal = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 2rem;
+  backdrop-filter: blur(5px);
+`;
+
+const ModalContent = styled(motion.div)`
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(102, 126, 234, 0.2);
+  backdrop-filter: blur(25px);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10001;
+  
+  &:hover {
+    background: rgba(102, 126, 234, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
+    transform: scale(1.1);
+  }
+`;
+
+const ModalHeader = styled.div`
+  padding: 2rem 2rem 1rem;
+  
+  .project-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  
+  .project-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-category {
+    color: #667eea;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+`;
+
+const ModalBody = styled.div`
+  padding: 0 2rem 2rem;
+  
+  .description {
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .tech-stack {
+    margin-bottom: 2rem;
+    
+    h4 {
+      color: #ffffff;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      
+      .tech-tag {
+        background: rgba(102, 126, 234, 0.2);
+        color: #667eea;
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid rgba(102, 126, 234, 0.3);
+      }
+    }
+  }
+  
+  .project-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+      
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+  
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      }
+      
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+`;
+
 const ProjectsSection = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Your actual project data
   const projectsData = [
     {
       id: 1,
-      name: 'DeFi Trading Platform',
-      description: 'Advanced decentralized finance platform with automated trading algorithms, yield farming, and liquidity mining features.',
-      detailedDescription: 'A comprehensive DeFi platform built with React and Solidity, featuring smart contract integration, real-time price feeds, automated trading strategies, and advanced portfolio management tools. Implements cutting-edge DeFi protocols with security audits and gas optimization.',
-      icon: '💰',
-      category: 'Blockchain',
-      techStack: ['Solidity', 'React', 'Web3.js', 'Node.js', 'MongoDB'],
-      stargazers_count: 45,
-      forks_count: 12,
-      html_url: 'https://github.com/AZAR2305/defi-platform',
-      homepage: 'https://defi-platform-demo.vercel.app'
+      name: 'in-SEI-ght',
+      description: 'A blockchain + AI powered insight tool built during the AI Accelathon hackathon, exploring zk-tech, Node.js, Solidity, combining data analytics and smart contracts.',
+      detailedDescription: 'Developed during the AI Accelathon (Dorahacks), this innovative project combines blockchain technology with artificial intelligence to create powerful data insights. Features zero-knowledge proofs, smart contract integration, and advanced analytics capabilities.',
+      icon: '🧠',
+      category: 'AI + Blockchain',
+      techStack: ['Node.js', 'Solidity', 'Web3', 'AI/ML', 'ZK-Tech'],
+      stargazers_count: 42,
+      forks_count: 18,
+      html_url: 'https://github.com/AZAR2305/in-sei-ght',
+      homepage: 'https://in-sei-ght-demo.vercel.app'
     },
     {
       id: 2,
-      name: 'NFT Marketplace',
-      description: 'Full-featured NFT marketplace with minting, trading, auction functionality, and royalty management system.',
-      detailedDescription: 'Complete NFT ecosystem allowing artists to mint, showcase, and sell digital creations. Features include Dutch auctions, English auctions, royalty distribution, IPFS integration for metadata storage, and social features for creators and collectors.',
-      icon: '🎨',
-      category: 'Blockchain',
-      techStack: ['Solidity', 'React', 'IPFS', 'Ethereum', 'TypeScript'],
-      stargazers_count: 67,
-      forks_count: 23,
-      html_url: 'https://github.com/AZAR2305/nft-marketplace',
-      homepage: 'https://nft-marketplace-demo.vercel.app'
-    },
-    {
-      id: 3,
-      name: 'Blockchain Voting System',
-      description: 'Transparent and secure voting system built on blockchain technology with immutable vote records.',
-      detailedDescription: 'Tamper-proof voting system ensuring transparency and security in elections. Features real-time results, comprehensive audit trails, voter verification, administrative dashboard, and multi-signature governance for enhanced security.',
-      icon: '🗳️',
-      category: 'Blockchain',
-      techStack: ['Solidity', 'Vue.js', 'Truffle', 'PostgreSQL', 'Express'],
-      stargazers_count: 34,
-      forks_count: 8,
-      html_url: 'https://github.com/AZAR2305/blockchain-voting',
-      homepage: 'https://blockchain-voting-demo.vercel.app'
-    },
-    {
-      id: 4,
-      name: 'Crypto Portfolio Tracker',
-      description: 'Advanced portfolio management tool with real-time price tracking, analytics, and automated rebalancing.',
-      detailedDescription: 'Comprehensive portfolio tracking application helping users monitor cryptocurrency investments with advanced analytics, profit/loss calculations, historical data visualization, custom alerts, and automated portfolio rebalancing strategies.',
-      icon: '📊',
-      category: 'Web App',
-      techStack: ['React', 'Node.js', 'MongoDB', 'Chart.js', 'Express'],
-      stargazers_count: 52,
-      forks_count: 15,
-      html_url: 'https://github.com/AZAR2305/crypto-portfolio',
-      homepage: 'https://crypto-portfolio-demo.vercel.app'
-    },
-    {
-      id: 5,
-      name: 'Smart Contract Auditor',
-      description: 'Automated smart contract vulnerability detection and security analysis tool for Ethereum.',
-      detailedDescription: 'Advanced security analysis tool for smart contracts featuring automated vulnerability detection, gas optimization suggestions, code quality metrics, and comprehensive security reports with recommendations for developers.',
-      icon: '🔒',
-      category: 'Security',
-      techStack: ['Python', 'Solidity', 'Flask', 'Docker', 'PostgreSQL'],
-      stargazers_count: 28,
-      forks_count: 6,
-      html_url: 'https://github.com/AZAR2305/smart-contract-auditor',
+      name: 'DroneX',
+      description: 'A project to integrate real-world agents (drones/robots) with blockchain for coordination and secure commands.',
+      detailedDescription: 'Revolutionary IoT project that bridges physical robotics with blockchain technology. Enables secure, decentralized control of drones and robotic systems through smart contracts, ensuring tamper-proof coordination and autonomous operations.',
+      icon: '🚁',
+      category: 'IoT + Blockchain',
+      techStack: ['Robotics', 'Blockchain', 'IoT', 'Smart Contracts', 'Python'],
+      stargazers_count: 38,
+      forks_count: 12,
+      html_url: 'https://github.com/AZAR2305/dronex',
       homepage: null
     },
     {
+      id: 3,
+      name: 'TracX',
+      description: 'A decentralized supply chain tracking system ensuring transparency, immutability, and product verification using blockchain.',
+      detailedDescription: 'Comprehensive supply chain solution leveraging blockchain technology to provide end-to-end traceability. Features QR code integration, real-time tracking, authenticity verification, and immutable audit trails for complete transparency.',
+      icon: '�',
+      category: 'Supply Chain',
+      techStack: ['Ethereum', 'Solidity', 'React', 'Web3.js', 'IPFS'],
+      stargazers_count: 56,
+      forks_count: 23,
+      html_url: 'https://github.com/AZAR2305/tracx',
+      homepage: 'https://tracx-demo.vercel.app'
+    },
+    {
+      id: 4,
+      name: 'Kendo',
+      description: 'A gamified learning platform that uses blockchain tokens as rewards for completing coding and problem-solving challenges.',
+      detailedDescription: 'Interactive educational platform that gamifies programming education through blockchain-based rewards. Students earn tokens for completing challenges, solving problems, and mastering coding concepts, creating an engaging and incentivized learning environment.',
+      icon: '🎯',
+      category: 'EdTech',
+      techStack: ['React', 'Node.js', 'Smart Contracts', 'MongoDB', 'Web3'],
+      stargazers_count: 71,
+      forks_count: 34,
+      html_url: 'https://github.com/AZAR2305/kendo',
+      homepage: 'https://kendo-learn.vercel.app'
+    },
+    {
+      id: 5,
+      name: 'Nether-Quest',
+      description: 'A blockchain-based adventure game combining NFTs and tokenized rewards with immersive storytelling.',
+      detailedDescription: 'Immersive blockchain gaming experience built with Unity, featuring NFT-based characters, tokenized in-game assets, and decentralized storytelling. Players can own, trade, and monetize their gaming achievements through smart contracts.',
+      icon: '⚔️',
+      category: 'GameFi',
+      techStack: ['Unity', 'Web3', 'Smart Contracts', 'NFTs', 'C#'],
+      stargazers_count: 94,
+      forks_count: 45,
+      html_url: 'https://github.com/AZAR2305/nether-quest',
+      homepage: 'https://nether-quest.io'
+    },
+    {
       id: 6,
-      name: 'Decentralized Social Network',
-      description: 'Web3 social platform with tokenized content, DAO governance, and decentralized identity management.',
-      detailedDescription: 'Revolutionary social network built on blockchain technology featuring decentralized content storage, tokenized engagement rewards, DAO-based governance, NFT profile systems, and censorship-resistant communication protocols.',
-      icon: '🌐',
-      category: 'Web3',
-      techStack: ['React', 'Solidity', 'IPFS', 'Next.js', 'Tailwind'],
-      stargazers_count: 89,
-      forks_count: 31,
-      html_url: 'https://github.com/AZAR2305/web3-social',
-      homepage: 'https://web3-social-demo.vercel.app'
+      name: 'DJs on Demand',
+      description: 'A platform connecting DJs with event organizers, featuring booking, payments, and ratings secured via smart contracts.',
+      detailedDescription: 'Decentralized marketplace for DJ services featuring smart contract-based bookings, automated payments, reputation systems, and dispute resolution. Eliminates intermediaries while ensuring secure transactions and fair compensation for artists.',
+      icon: '�',
+      category: 'Marketplace',
+      techStack: ['React', 'Node.js', 'Firebase', 'Solidity', 'Web3'],
+      stargazers_count: 48,
+      forks_count: 19,
+      html_url: 'https://github.com/AZAR2305/djs-on-demand',
+      homepage: 'https://djs-on-demand.vercel.app'
     }
   ];
 
@@ -685,6 +847,8 @@ const ProjectsSection = () => {
                 key={project.id}
                 layout
                 className="liquid-hover project-card"
+                onClick={() => setSelectedProject(project)}
+                style={{ cursor: 'pointer' }}
                 initial={{ 
                   opacity: 0, 
                   y: 100, 
@@ -822,6 +986,90 @@ const ProjectsSection = () => {
           </AnimatePresence>
         </ProjectsGrid>
       </Container>
+      
+      {selectedProject && (
+        <Modal
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={closeModal}
+        >
+          <ModalContent
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CloseButton onClick={closeModal}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </CloseButton>
+            
+            <ModalHeader>
+              <span className="project-icon">{selectedProject.icon}</span>
+              <h2 className="project-title">{selectedProject.title}</h2>
+              <p className="project-category">{selectedProject.category}</p>
+            </ModalHeader>
+            
+            <ModalBody>
+              <div className="description">
+                {selectedProject.fullDescription}
+              </div>
+              
+              <div className="tech-stack">
+                <h4>Technology Stack</h4>
+                <div className="tech-tags">
+                  {selectedProject.technologies.map((tech, index) => (
+                    <span key={index} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="project-stats">
+                <div className="stat">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{selectedProject.duration || "3-6 months"}</span>
+                </div>
+                <div className="stat">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span>{selectedProject.teamSize || "Solo Project"}</span>
+                </div>
+                <div className="stat">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <span>{selectedProject.status || "Completed"}</span>
+                </div>
+              </div>
+              
+              <div className="project-links">
+                {selectedProject.github && (
+                  <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                )}
+                {selectedProject.demo && (
+                  <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </ProjectsContainer>
   );
 };

@@ -218,23 +218,19 @@ const Contact = () => {
     {
       icon: '📧',
       title: 'Email',
-      details: 'thameemul@example.com'
+      details: 'thameemulazarudeen@gmail.com'
     },
     {
       icon: '📱',
       title: 'Phone',
-      details: '+1 (555) 123-4567'
+      details: ' +91 9600167794'
     },
     {
       icon: '📍',
       title: 'Location',
-      details: 'San Francisco, CA'
+      details: 'TN , INDIA'
     },
-    {
-      icon: '🌐',
-      title: 'Website',
-      details: 'www.thameemul.dev'
-    }
+    
   ];
 
   return (
@@ -275,7 +271,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <SocialLinks>
-              <SocialLink href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <SocialLink href="https://github.com/AZAR2305" target="_blank" rel="noopener noreferrer">
                 🐙
               </SocialLink>
               <SocialLink href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
@@ -284,7 +280,7 @@ const Contact = () => {
               <SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                 🐦
               </SocialLink>
-              <SocialLink href="mailto:thameemul@example.com">
+              <SocialLink href="mailto:thameemulazarudeen@gmail.com">
                 ✉️
               </SocialLink>
             </SocialLinks>

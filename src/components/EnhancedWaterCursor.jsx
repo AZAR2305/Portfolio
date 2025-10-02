@@ -297,12 +297,9 @@ const EnhancedWaterCursor = () => {
     return elements.find(el => 
       el.classList.contains('liquid-hover') ||
       el.classList.contains('project-card') ||
-      el.classList.contains('project-item') ||
       el.tagName === 'BUTTON' ||
       el.tagName === 'A' ||
       el.closest('.liquid-hover') ||
-      el.closest('.project-card') ||
-      el.closest('.project-item') ||
       el.closest('button') ||
       el.closest('a')
     );

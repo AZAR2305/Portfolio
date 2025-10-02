@@ -5,7 +5,7 @@ import ProfessionalHero from '../components/sections/ProfessionalHero';
 import ProfessionalAbout from '../components/sections/ProfessionalAbout';
 import ProjectsSection from '../components/sections/ProjectsSection';
 import ProfessionalContact from '../components/sections/ProfessionalContact';
-import EnhancedWaterCursor from '../components/EnhancedWaterCursor';
+import WaterCursor from '../components/WaterCursor';
 import InteractiveBackground from '../components/InteractiveBackground';
 
 const PageWrapper = styled.div`
@@ -31,7 +31,7 @@ const ModernPortfolioPage = () => {
   return (
     <PageWrapper>
       <InteractiveBackground />
-      <EnhancedWaterCursor />
+      <WaterCursor />
       <Navigation />
       <section id="home">
         <ProfessionalHero />
